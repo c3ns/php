@@ -1,4 +1,11 @@
+
+<form method="post" action="<?php echo $_SERVER["PHP_SELF"];?>">
+    <input type="text" name="name">
+    <input type="submit" name="submit" value="Submit">
+</form>
 <?php
+
+
 
 $type = "cat";
 $name = "Tim";
