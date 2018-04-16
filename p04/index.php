@@ -19,8 +19,7 @@
     <input type="password" name="password" placeholder="password">
     <input type="submit" value="Login"><br>
     <?php
-        $msg = !empty($_SESSION['username'])? "<p>Welcome back ".$_SESSION['username']."</p>" : "";
-        echo $msg;
+        echo !empty($_SESSION['username'])? "<p>Welcome back ".$_SESSION['username']."</p>" : "";
     ?>
 </form>
 </body>
