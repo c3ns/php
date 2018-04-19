@@ -36,7 +36,7 @@ $dates = array (
 function filterDate($date){
     return array_filter($date, function ($d){
         $y=strtotime("-5 Years");
-        return $d > date("Y-m-d h:i:s", $y);
+        return $d > date("Y-m-d H:i:s", $y);
     });
 }
 $_SESSION['filtered'] = filterDate($dates);
