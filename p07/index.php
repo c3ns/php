@@ -16,6 +16,7 @@
         <input type="text" name="surname" placeholder="surname">
         <input type="text" name="email" placeholder="email">
         <input type="submit" value="Add Author" name="btnAddAuthor"><br>
+        <!--        show msg if input is empty-->
         <?php setErrorMsg("autMsg"); ?>
     </form>
     <hr>
@@ -23,14 +24,15 @@
         <input type="text" name="title" placeholder="title"><br>
         <textarea name="post" cols="30" rows="10" placeholder="post..."></textarea><br>
         Author: <select name="authorSelect">
+            <!--        show <select> elements-->
             <?php authorSelectList(); ?>
         </select>
         <input type="submit" value="Add Post" name="btnAddPost"><br>
+        <!--        show msg if input is empty-->
         <?php setErrorMsg("postMsg"); ?>
     </form><br>
     <a href="index.php?posts=true">Show Posts</a>
-    <?php
-        isset($_GET['posts'])? getPosts() : null;
-    ?>
+    <!--        show posts-->
+    <?php isset($_GET['posts'])? getPosts() : null; ?>
 </body>
 </html>

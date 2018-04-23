@@ -1,5 +1,5 @@
 <?php
-
+// initialize <select> tag
 function authorSelectList(){
     $sql = "SELECT * FROM author";
     $sth = getDB()->query($sql);
@@ -8,6 +8,7 @@ function authorSelectList(){
         echo "<option value='". $row['id'] ."'>".$row['name']."</option>";
     }
 }
+// show "sucesfull" or errors after added author or post
 function setErrorMsg($msgType){
     if(!empty($_SESSION["$msgType"])) {
         if(is_array($_SESSION["$msgType"])){

@@ -16,7 +16,4 @@ function getPosts(){
         }
 
     }
-    echo '<pre>';
-
-
 }

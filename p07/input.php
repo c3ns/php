@@ -27,6 +27,8 @@ function addPost(){
     $msgType = "postMsg";
     addErrors($sth,$post,$msgType);
 }
+//check error array. if errors array is empty then wirte data to DB.
+//otherwise save errors to session
 function addErrors($sth,$post,$msgType){
     $errors = [];
     if(!checkErrors($post,$errors)){
@@ -38,7 +40,7 @@ function addErrors($sth,$post,$msgType){
     header(header("Location: index.php"));
 }
 
-
+//if element in data array have null,then add error to errors array
 function checkErrors($data, &$errors){
     $bool = false;
     foreach ($data as $key => $d){
@@ -54,7 +56,7 @@ function checkInput($input, $type=""){
         return filter_var($input, FILTER_VALIDATE_EMAIL)? $input : null;
     }
     else if($type === "post"){
-        return filter_var($input,FILTER_SANITIZE_SPECIAL_CHARS)? $input : null;
+        return !empty($input)? filter_var($input,FILTER_SANITIZE_SPECIAL_CHARS) : null;
     }
     else{
         return !empty($input)? filter_var($input, FILTER_SANITIZE_STRING) : null;
