@@ -37,7 +37,7 @@ function addErrors($sth,$post,$msgType){
     }else{
         $_SESSION["$msgType"] = $errors;
     }
-    header(header("Location: index.php"));
+    header("Location: index.php");
 }
 
 //if element in data array have null,then add error to errors array

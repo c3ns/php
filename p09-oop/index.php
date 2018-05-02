@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
-include ('post.class.php');
-include ('person.class.php');
+include('Post.class.php');
+include('Person.class.php');
 ?>
 <!doctype html>
 <html lang="en">
