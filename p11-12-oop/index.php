@@ -1,9 +1,8 @@
 <?php
-spl_autoload_register(function ($class) {
-    include 'src/' . $class . '.class.php';
-});
-require ("selectList.php");
-require ("data.php");
+require ("vendor/autoload.php");
+
+use Models\Components\SelectList;
+use Models\DataTable;
 ?>
 
 
@@ -24,7 +23,7 @@ require ("data.php");
             <th>Surname</th>
             <th>Forename</th>
         </tr>
-        <?php printData() ?>
+        <?php DataTable::printData(); ?>
     </table>
     <hr>
 
@@ -50,10 +49,10 @@ require ("data.php");
     <b>Add Mark</b>
     <form action="input.php" method="POST">
         <select name="studentSelect">
-            <?php studentSelectList(); ?>
+            <?php SelectList::studentSelectList(); ?>
         </select>
         <select name="moduleSelect">
-            <?php moduleSelectList(); ?>
+            <?php SelectList::moduleSelectList(); ?>
         </select>
 
         <input type="text" name="mark" placeholder="Student Mark">

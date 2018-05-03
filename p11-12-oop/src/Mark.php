@@ -1,4 +1,7 @@
 <?php
+namespace Models;
+
+use Models\Db\DB;
 
 class Mark extends DB
 {
@@ -14,12 +17,11 @@ class Mark extends DB
     }
     public function save(){
         $sql = "INSERT INTO marks (student_no, module_code, mark) VALUES (:student_no, :module_code, :mark)";
-        $sth = parent::getDB()->prepare($sql);
         $data = [
             'student_no' => $this->studentNo,
             'module_code' => $this->moduleCode,
             'mark' => $this->mark,
         ];
-        $sth->execute($data);
+        parent::query($sql,$data);
     }
 }

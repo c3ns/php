@@ -1,4 +1,8 @@
 <?php
+namespace Models;
+
+use Models\Db\Db;
+
 class Module extends DB
 {
     public $moduleCode = null;
@@ -11,11 +15,10 @@ class Module extends DB
     }
     public function save(){
         $sql = "INSERT INTO modules (module_code, module_name) VALUES (:module_code, :module_name)";
-        $sth = parent::getDB()->prepare($sql);
         $data = [
             'module_code' => $this->moduleCode,
             'module_name' => $this->moduleName,
         ];
-        $sth->execute($data);
+        parent::query($sql,$data);
     }
 }
