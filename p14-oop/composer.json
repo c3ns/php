@@ -1,0 +1,17 @@
+{
+    "name": "ernes/p14-oop",
+    "authors": [
+        {
+            "name": "c3ns",
+            "email": "ernestas.radzvilas@gmail.com"
+        }
+    ],
+    "require": {
+        "fzaninotto/faker": "^1.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Models\\" : "src"
+        }
+    }
+}
