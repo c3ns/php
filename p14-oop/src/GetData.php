@@ -7,7 +7,6 @@ use PDO;
 class GetData extends DB
 {
     const MAX_LIMIT = 100;
-    const DEFAULT_LIMIT = 15;
     private $limit;
     private $author;
 
@@ -27,9 +26,5 @@ class GetData extends DB
         $data = [ 'author' => "%".$this->author."%" ];
 
         return parent::query($sql, $data)->fetchAll(PDO::FETCH_ASSOC);
-    }
-    public function setLimit(){
-        $this->limit = 50;
-        return $this;
     }
 }
