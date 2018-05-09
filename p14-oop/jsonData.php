@@ -27,6 +27,7 @@ if(count($_GET) > 0){
 }else{
     $data = new GetData();
 }
+
 echo json_encode($data->getJsonData());
 
 

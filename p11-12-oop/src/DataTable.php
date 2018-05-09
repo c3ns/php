@@ -1,4 +1,5 @@
 <?php
+
 namespace Models;
 
 use Models\Db\Db;
@@ -17,7 +18,7 @@ abstract class DataTable extends DB
                 LEFT JOIN students t3
                     ON t1.student_no = t3.student_no";
 
-       return parent::query($sql)->fetchAll(PDO::FETCH_ASSOC);
+        return parent::query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
     static public function printData(){

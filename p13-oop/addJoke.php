@@ -1,10 +1,10 @@
 <?php
 require ("vendor/autoload.php");
 
-use Models\Joke;
+use Models\Mail;
 
 for($i=0;$i<5;$i++){
-    $joke = new Joke;
+    $joke = new Mail;
     $joke->save();
 }
 
