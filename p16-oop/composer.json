@@ -1,0 +1,15 @@
+{
+    "name": "ernes/p16-oop",
+    "authors": [
+        {
+            "name": "c3ns",
+            "email": "ernestas.radzvilas@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Models\\" : "src"
+        }
+    }
+}
