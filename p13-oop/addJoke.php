@@ -1,10 +1,10 @@
 <?php
 require ("vendor/autoload.php");
 
-use Models\FillDb;
+use Models\Joke;
 
 for($i=0;$i<5;$i++){
-    $joke = new FillDb;
+    $joke = new Joke;
     $joke->save();
 }
 
