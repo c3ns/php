@@ -13,5 +13,6 @@
 
 Route::get('/', 'MainController@index')->name('main');
 Route::post('/data/store', 'MainController@store')->name('save_data');
-Route::get('/page/posts', 'MainController@posts')->name('show_posts');
+Route::get('/page/add', 'MainController@posts')->name('show_posts');
+Route::get('/page/cat/{id}', 'MainController@index')->name('by_categorie');
 

@@ -1,15 +1,17 @@
 @extends('main')
 @section('content')
-    <form action="{{ route('save_data') }}" method="POST">
-        @csrf
-        <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" name="title" class="form-control" id="title">
+
+    @foreach($pages as $page)
+        <div class="card">
+            <div class="card-header">
+
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{$page['title']}}</h5>
+                <p class="card-text">{{$page['content']}}</p>
+                <small>{{$page['created_at']}}</small>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="content">Content</label>
-            <textarea class="form-control" id="content" name="content" rows="3"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    @endforeach
+
 @endsection

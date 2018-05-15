@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Categorie;
 use Illuminate\Http\Request;
 
 use App\Post;
+use App\Page;
 
 class MainController extends Controller
 {
-    public function index(){
-        return view('index', [
-            'pageTitle' => "Homepage"
+    public function posts(){
+        return view('posts', [
+            'pageTitle' => "Add Page"
         ]);
     }
     public function store(Request $request){
@@ -24,11 +26,18 @@ class MainController extends Controller
             return redirect(route("main"));
         }
     }
-    public function posts(){
-        $posts = Post::get();
-        return view('posts', [
-            'pageTitle' => "Posts",
-            'posts' => $posts
+    public function index(Request $request){
+        if(isset($request->id)){
+            $pages = Page::where('category_id', $request->id)->get();
+        }else{
+            $pages = Page::get();
+        }
+
+        $cat = Categorie::get();
+        return view('index', [
+            'pageTitle' => "Homepage",
+            'pages' => $pages,
+            'cat' => $cat
         ]);
     }
 }
