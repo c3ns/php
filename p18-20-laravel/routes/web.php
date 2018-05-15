@@ -11,6 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'MainController@index')->name('main');
+Route::post('/data/store', 'MainController@store')->name('save_data');
+Route::get('/page/posts', 'MainController@posts')->name('show_posts');
+
