@@ -28,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-
+        return view('categories.create');
     }
 
     /**
@@ -39,7 +39,22 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = $request->validate([
+            'name' => 'required|max:200|min:3|unique:category',
+            'position' => 'required|integer|min:1',
+        ]);
+
+        $data = $request->all();
+        $cat = new Category();
+        $cat->name = $request->input('name');
+        $cat->position = $request->input('position');
+
+        $cat->save();
+
+        $request->session()->flash('status', 'Category added successful');
+
+        return redirect(route('posts.index'));
+
     }
 
     /**
