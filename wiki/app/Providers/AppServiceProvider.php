@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Category;
+use App\Post;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,7 +17,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $cat = Category::orderBy('position', 'DESC')->get();
+        $cat_count = [];
+        foreach ($cat as $c){
+            $count = Post::where('category', $c->id)->count();
+            array_push($cat_count, $count);
+        }
+
+
+
         Schema::defaultStringLength(191);
+
+        View::share('categories', $cat);
+        View::share('cat_count', $cat_count);
     }
 
     /**

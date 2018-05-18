@@ -1,14 +1,15 @@
 @extends('layouts.app')
 @section('content')
 
-    <div class="container">
+    <div class="containter">
         <div class="row justify-content-center">
             <div class="col-sm-12">
-                <form action={{ route('posts.store') }} method="POST">
+                <form action="{{ route('posts.update', ['id' => $post->id]) }}" method="POST">
                     @csrf
+                    <input type="hidden" name="_method" value="put">
                     <div class="form-group">
                         <label for="title">Title</label>
-                        <input type="text" class="form-control" id="title" name="title">
+                        <input value="{{ $post->title }}" type="text" class="form-control" id="title" name="title">
                     </div>
                     <div class="form-group">
                         <label for="category">Select category</label>
@@ -20,10 +21,10 @@
 
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Conntet</label>
-                        <textarea class="form-control" id="content" name="content" rows="3"></textarea>
+                        <label for="exampleFormControlTextarea1">Content</label>
+                        <textarea class="form-control" id="content" name="content" rows="3">{{ $post->content }}</textarea>
                     </div>
-                    <button type="submit" class="btn btn-success">Create Post</button>
+                    <button type="submit" class="btn btn-success">Save</button>
                     @if ($errors->any())
                         <div class="alert alert-danger mt-2">
                             <ul>

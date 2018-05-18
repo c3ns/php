@@ -77,8 +77,26 @@
         </div>
 
         @endif
-        <main class="py-4">
-            @yield('content')
+        <main class="py-4 container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="alert alert-primary">Categories:</div>
+                    <ul class="list-group">
+                        @foreach($categories as $key => $cat)
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href={{ route('cat.show', ['id' =>$cat->id]) }}><small>{{ $cat->name }}</small></a>
+                                <span class="badge badge-primary badge-pill">{{$cat_count[$key]}}</span>
+
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div class="col-sm-9">
+                    @yield('content')
+                </div>
+            </div>
+
+
         </main>
     </div>
 </body>

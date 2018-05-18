@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+
+use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class CategoryController extends Controller
 {
@@ -53,7 +56,7 @@ class CategoryController extends Controller
 
         $request->session()->flash('status', 'Category added successful');
 
-        return redirect(route('posts.index'));
+        return redirect(route('cat.index'));
 
     }
 
@@ -65,7 +68,9 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $posts = Post::where('category', $id)->paginate(15);
+
+        return view('posts.index', ['posts' => $posts]);
     }
 
     /**
@@ -76,7 +81,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $cat = Category::find($id);
+
+        return view('categories.edit', ['category' => $cat]);
     }
 
     /**
@@ -88,7 +95,21 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validate = $request->validate([
+            'name' => 'required|max:200|min:3',
+            'position' => 'required|integer|min:1',
+        ]);
+
+        $data = $request->all();
+        $cat = Category::find($id);
+        $cat->name = $request->input('name');
+        $cat->position = $request->input('position');
+
+        $cat->save();
+
+        $request->session()->flash('status', 'Category updated!');
+
+        return redirect(route('cat.index'));
     }
 
     /**
@@ -99,6 +120,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Category::find($id)->delete();
+        Session::flash('status', 'Category deleted');
+
+        return redirect(route('cat.index'));
     }
 }
