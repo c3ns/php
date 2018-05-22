@@ -5,10 +5,11 @@
         <div class="row justify-content-center">
             <div class="col-sm-12">
                 @forelse($posts as $post)
-                    <div class="card">
+                    <div class="card mt-2">
                         <div class="card-header">
                             {{ $post->title }}
                             @auth
+                                @can('edit', $post)
                                 <div class="d-inline-block p-2 float-right">
                                     <form action="{{ route('posts.destroy', ['id' => $post->id]) }}" method="post">
                                         @csrf
@@ -19,6 +20,7 @@
                                 <div class="d-inline-block p-2 float-right">
                                     <a class="btn btn-primary btn-sm" href="{{ route('posts.edit', ['id' => $post->id]) }}">edit</a></li>
                                 </div>
+                                @endcan
                             @endauth
                         </div>
                         <div class="card-body">

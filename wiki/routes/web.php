@@ -17,3 +17,4 @@ Auth::routes();
 
 Route::resource('posts', 'PostController');
 Route::resource('cat', 'CategoryController');
+Route::get('/admin/posts', 'PostController@indexAdmin')->name('admin_posts');

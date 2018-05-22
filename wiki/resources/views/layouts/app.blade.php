@@ -36,9 +36,20 @@
                     <ul class="navbar-nav mr-auto">
                         <li><a class="nav-link" href="{{ route('home') }}">Home</a></li>
                         @auth
-                        <li><a class="nav-link" href="{{ route('posts.create') }}">Create New Post</a></li>
-                        <li><a class="nav-link" href="{{ route('cat.index') }}">Categories</a></li>
-                        <li><a class="nav-link" href="{{ route('cat.create') }}">Create New Category</a></li>
+                            <li><a class="nav-link" href="{{ route('posts.create') }}">Create New Post</a></li>
+                            @can('createCategory', App\Category::class)
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Admin
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('admin_posts') }}">Posts</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ route('cat.index') }}">Categories</a>
+                                        <a class="dropdown-item" href="{{ route('cat.create') }}">Create Category</a>
+                                    </div>
+                                </li>
+                            @endcan
                         @endauth
                     </ul>
 
@@ -82,7 +93,7 @@
                 <div class="col-sm-3">
                     <div class="alert alert-primary">Categories:</div>
                     <ul class="list-group">
-                        @foreach($categories as $key => $cat)
+                        @foreach($cat_list as $key => $cat)
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <a href={{ route('cat.show', ['id' =>$cat->id]) }}><small>{{ $cat->name }}</small></a>
                                 <span class="badge badge-primary badge-pill">{{$cat_count[$key]}}</span>

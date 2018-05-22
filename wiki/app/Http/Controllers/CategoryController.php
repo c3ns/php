@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
 
+use App\Category;
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class CategoryController extends Controller
@@ -21,6 +22,9 @@ class CategoryController extends Controller
     public function index()
     {
         $cat = Category::all();
+
+        if(Auth::user()->cant('createCategory', Category::class))
+            return redirect(route('home'));
         return view('categories.index', ['categories' => $cat]);
     }
 
@@ -31,6 +35,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        if(Auth::user()->cant('createCategory', Category::class))
+            return redirect(route('home'));
         return view('categories.create');
     }
 
@@ -57,7 +63,6 @@ class CategoryController extends Controller
         $request->session()->flash('status', 'Category added successful');
 
         return redirect(route('cat.index'));
-
     }
 
     /**
@@ -83,6 +88,8 @@ class CategoryController extends Controller
     {
         $cat = Category::find($id);
 
+        if(Auth::user()->cant('createCategory', Category::class))
+            return redirect(route('home'));
         return view('categories.edit', ['category' => $cat]);
     }
 
@@ -120,9 +127,14 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        Category::find($id)->delete();
+        $category = Category::find($id);
+
+
+        $category->delete();
         Session::flash('status', 'Category deleted');
 
+        if(Auth::user()->cant('createCategory', Category::class))
+            return redirect(route('home'));
         return redirect(route('cat.index'));
     }
 }
