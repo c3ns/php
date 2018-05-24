@@ -37,13 +37,19 @@
                         <li><a class="nav-link" href="{{ route('home') }}">Home</a></li>
                         @auth
                             <li><a class="nav-link" href="{{ route('posts.create') }}">Create New Post</a></li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">User</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('user.index') }}">My Posts</a>
+                                </div>
+                            </li>
                             @can('createCategory', App\Category::class)
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Admin
-                                    </a>
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('admin_posts') }}">Posts</a>
+                                        <a class="dropdown-item" href="{{ route('admin.index') }}">Stats</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ route('admin.posts') }}">Posts</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="{{ route('cat.index') }}">Categories</a>
                                         <a class="dropdown-item" href="{{ route('cat.create') }}">Create Category</a>
@@ -90,19 +96,23 @@
         @endif
         <main class="py-4 container">
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-3 mt-2">
+                    @auth
+                    <div class="alert alert-primary">
+                    <input id="search" class="form-control form-control-lg" type="text" name="search" placeholder="search..."></div>
+                    @endauth
                     <div class="alert alert-primary">Categories:</div>
                     <ul class="list-group">
-                        @foreach($cat_list as $key => $cat)
+                        @foreach($cat_list as $cat)
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <a href={{ route('cat.show', ['id' =>$cat->id]) }}><small>{{ $cat->name }}</small></a>
-                                <span class="badge badge-primary badge-pill">{{$cat_count[$key]}}</span>
+                                <span class="badge badge-primary badge-pill">{{ $cat->post->count() }}</span>
 
                             </li>
                         @endforeach
                     </ul>
                 </div>
-                <div class="col-sm-9">
+                <div id="results" class="col-sm-9">
                     @yield('content')
                 </div>
             </div>
@@ -110,5 +120,22 @@
 
         </main>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+        $( document ).ready(function() {
+            $('#search').on("input",function () {
+               $value = $(this).val();
+                   $.ajax({
+                       method : 'GET',
+                       url : '{{URL::to('search')}}',
+                       data:{'search':$value}
+                   }).done(function(data) {
+                            $('#results').html(data);
+                            console.log(data);
+                   });
+            });
+        });
+    </script>
 </body>
 </html>

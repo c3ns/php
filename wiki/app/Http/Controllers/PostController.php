@@ -89,12 +89,12 @@ class PostController extends Controller
         $cat = Category::all();
         $user = Auth::user();
 
-        if($user->can('edit', $post)){
+        if ($user->can('edit', $post)) {
             return view('posts.edit', [
                 'post' => $post,
                 'categories' => $cat
             ]);
-        }else
+        } else
             return redirect(route('home'));
     }
 
@@ -137,18 +137,11 @@ class PostController extends Controller
         $post = Post::find($id);
         $user = Auth::user();
 
-        if($user->cant('edit', $post))
+        if ($user->cant('edit', $post))
             return redirect(route('home'));
 
         $post->delete();
         Session::flash('status', 'Post deleted');
         return redirect(route('home'));
-    }
-    public function indexAdmin(){
-        $posts = Post::paginate(15);
-
-        if(Auth::user()->cant('createCategory', Category::class))
-            return redirect(route('home'));
-        return view('posts.indexAdmin', ['posts' => $posts]);
     }
 }

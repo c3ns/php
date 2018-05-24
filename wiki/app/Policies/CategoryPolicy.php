@@ -22,7 +22,7 @@ class CategoryPolicy
     }
     public function createCategory(User $user)
     {
-        if($user->name === 'admin')
+        if($user->name === env('ADMIN_NAME'))
             return true;
         else
             return false;

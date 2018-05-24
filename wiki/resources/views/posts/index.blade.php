@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-sm-12">
@@ -22,6 +21,7 @@
                                 </div>
                                 @endcan
                             @endauth
+
                         </div>
                         <div class="card-body">
                             <p class="card-text">{{ str_limit($post->content, 300) }}</p>

@@ -17,19 +17,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $cat = Category::orderBy('position', 'ASC')->get();
-        $cat_count = [];
-        foreach ($cat as $c){
-            $count = Post::where('category', $c->id)->count();
-            array_push($cat_count, $count);
-        }
-
-
-
         Schema::defaultStringLength(191);
 
+        $cat = Category::orderBy('position', 'ASC')->get();
+
         View::share('cat_list', $cat);
-        View::share('cat_count', $cat_count);
     }
 
     /**

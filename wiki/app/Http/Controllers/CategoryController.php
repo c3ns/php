@@ -6,13 +6,13 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class CategoryController extends Controller
 {
     public function __construct(){
         $this->middleware('auth', ['except' => ['index','show']]);
+
     }
     /**
      * Display a listing of the resource.
@@ -23,8 +23,6 @@ class CategoryController extends Controller
     {
         $cat = Category::all();
 
-        if(Auth::user()->cant('createCategory', Category::class))
-            return redirect(route('home'));
         return view('categories.index', ['categories' => $cat]);
     }
 
@@ -35,8 +33,6 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        if(Auth::user()->cant('createCategory', Category::class))
-            return redirect(route('home'));
         return view('categories.create');
     }
 
@@ -88,8 +84,6 @@ class CategoryController extends Controller
     {
         $cat = Category::find($id);
 
-        if(Auth::user()->cant('createCategory', Category::class))
-            return redirect(route('home'));
         return view('categories.edit', ['category' => $cat]);
     }
 
@@ -127,14 +121,10 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::find($id);
+        Category::find($id)->delete();
 
-
-        $category->delete();
         Session::flash('status', 'Category deleted');
 
-        if(Auth::user()->cant('createCategory', Category::class))
-            return redirect(route('home'));
         return redirect(route('cat.index'));
     }
 }

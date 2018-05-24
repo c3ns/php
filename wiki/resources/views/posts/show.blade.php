@@ -21,7 +21,8 @@
                     </div>
                     <div class="card-body">
                         <p class="card-text">{{ $post->content }}</p>
-                        <footer class="blockquote-footer"><cite title="Source Title">{{ $post->created_at }}</cite></footer>
+                        <footer class="blockquote-footer"><cite title="Source Title">{{ $post->created_at }}</cite><br>
+                            <span class="badge badge-info">{{ $post->thisIsUserObject->name }}</span></footer>
                     </div>
                 </div>
             </div>

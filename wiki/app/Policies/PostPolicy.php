@@ -21,7 +21,7 @@ class PostPolicy
     }
     public function edit(User $user, Post $post)
     {
-        if(($user->id == $post->user) || ($user->name === 'admin'))
+        if(($user->id == $post->user) || ($user->name === env('ADMIN_NAME')))
             return true;
         else
             return false;
