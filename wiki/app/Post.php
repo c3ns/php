@@ -14,4 +14,15 @@ class Post extends Model
     {
         return $this->belongsTo('App\Category', 'category');
     }
+    public function cat(){
+
+        //kai rysis many to many
+        //visada bus belongsToMany
+        return $this->belongsToMany('App\Category');
+    }
+    public function scopeCat1(){
+
+
+        return $this->belongsToMany('App\Category');
+    }
 }

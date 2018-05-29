@@ -12,7 +12,7 @@
                     </div>
                     <div class="form-group">
                         <label for="category">Select category</label>
-                        <select class="form-control" id="category" name="category">
+                        <select class="form-control" id="category" name="category[]" multiple>
                             @foreach($categories as $cat)
                                 <option value="{{ $cat->id }}">{{ $cat->name }}</option>
                             @endforeach

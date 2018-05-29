@@ -6,6 +6,7 @@ use App\Category;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class PostController extends Controller
@@ -45,20 +46,29 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
         $validatedData = $request->validate([
             'title' => 'required|max:150|min:3',
             'content' => 'required|min:5',
         ]);
 
         $data = $request->all();
+
         $post = new Post;
 
         $post->title = $data['title'];
         $post->content = $data['content'];
-        $post->category = $data['category'];
+        $post->category = 2;
         $post->user = Auth::user()->id;
 
         $post->save();
+
+
+
+        foreach($data['category'] as $cat_id)
+        {
+            $post->cat()->attach($cat_id);
+        }
 
         $request->session()->flash('status', 'Post added successful');
 

@@ -69,9 +69,9 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $posts = Post::where('category', $id)->paginate(15);
+        $posts = Category::where('id', $id)->paginate(15);
 
-        return view('posts.index', ['posts' => $posts]);
+        return view('categories.show', ['posts' => $posts]);
     }
 
     /**

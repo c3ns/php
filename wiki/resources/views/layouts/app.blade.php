@@ -106,7 +106,7 @@
                         @foreach($cat_list as $cat)
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <a href={{ route('cat.show', ['id' =>$cat->id]) }}><small>{{ $cat->name }}</small></a>
-                                <span class="badge badge-primary badge-pill">{{ $cat->post->count() }}</span>
+                                <span class="badge badge-primary badge-pill">{{ $cat->post1->count() }}</span>
 
                             </li>
                         @endforeach

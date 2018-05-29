@@ -3,7 +3,11 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-sm-12">
+
+
                 @forelse($posts as $post)
+                    <?php var_dump($post);exit ?>
+
                     <div class="card mt-2">
                         <div class="card-header">
                             {{ $post->title }}
@@ -25,7 +29,12 @@
                         </div>
                         <div class="card-body">
                             <p class="card-text">{{ str_limit($post->content, 300) }}</p>
-                                <footer class="blockquote-footer"><cite title="Source Title">{{ $post->created_at }}</cite></footer>
+                                <footer class="blockquote-footer"><cite title="Source Title">{{ $post->created_at }}</cite>
+                                    @foreach($post->cat as $cat )
+                                        <span class="badge badge-info">{{ $cat->name }}</span>
+                                    @endforeach
+                                </footer>
+
                             <a href="{{ route('posts.show', ['id' => $post->id])}}" class="btn btn-primary btn-sm mt-3">read more...</a>
                         </div>
                     </div>
