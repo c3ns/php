@@ -20,9 +20,4 @@ class Post extends Model
         //visada bus belongsToMany
         return $this->belongsToMany('App\Category');
     }
-    public function scopeCat1(){
-
-
-        return $this->belongsToMany('App\Category');
-    }
 }

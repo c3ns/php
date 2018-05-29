@@ -6,7 +6,6 @@
 
 
                 @forelse($posts as $post)
-                    <?php var_dump($post);exit ?>
 
                     <div class="card mt-2">
                         <div class="card-header">
